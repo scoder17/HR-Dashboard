@@ -101,6 +101,22 @@ export default function EmployeeDetail() {
     { id: 'feedback', label: 'Feedback' }
   ];
 
+  const handlePromote = () => {
+    alert(`${employee.firstName} ${employee.lastName} has been promoted! 🎉`)
+  }
+
+  const handleAssignProject = () => {
+    alert(`The project has been assigned successfully! 🎉`)
+  }
+
+  const handleScheduleMeet = () => {
+    alert(`The meet has been scheduled successfully! 🎉`)
+  }
+
+  const handleSendMessage = () => {
+    alert(`The message has been sent successfully! 🎉`)
+  }
+
   const renderTabContent = () => {
     switch (activeTab) {
       case 'overview':
@@ -280,7 +296,7 @@ export default function EmployeeDetail() {
               >
                 {isBookmarked ? 'Bookmarked' : 'Bookmark'}
               </Button>
-              <Button variant="default">
+              <Button variant="default" onClick={handlePromote}>
                 Promote
               </Button>
             </div>
@@ -319,15 +335,15 @@ export default function EmployeeDetail() {
             <Card className="p-6">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Quick Actions</h3>
               <div className="space-y-3">
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" onClick={handleAssignProject}>
                   <Briefcase className="h-4 w-4 mr-2" />
                   Assign to Project
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" onClick={handleScheduleMeet}>
                   <Calendar className="h-4 w-4 mr-2" />
                   Schedule Meeting
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" onClick={handleSendMessage}>
                   <Mail className="h-4 w-4 mr-2" />
                   Send Message
                 </Button>
