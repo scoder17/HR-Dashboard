@@ -8,7 +8,7 @@ import useStore from '@/store/useStore'
 
 // Mock departments for consistent data
 const departments = [
-  'Engineering', 'Marketing', 'Sales', 'HR', 'Finance', 
+  'Engineering', 'Marketing', 'Sales', 'HR', 'Finance',
   'Operations', 'Design', 'Legal', 'IT Support'
 ];
 
@@ -228,11 +228,24 @@ const Analytics = () => {
                   height={80}
                 />
                 <YAxis domain={[0, 5]} />
-                <Tooltip 
+                {/* <Tooltip 
                   formatter={(value, name) => [
                     name === 'avgRating' ? `${value} stars` : value,
                     name === 'avgRating' ? 'Average Rating' : 'Employee Count'
                   ]}
+                /> */}
+                <Tooltip 
+                  labelStyle={{ color: '#1E3A8A' }}
+                  formatter={(value, name, props) => {
+                    const { dataKey } = props;
+                    if (dataKey === 'avgRating') {
+                      return [`${value} stars`, 'Average Rating'];
+                    }
+                    if (dataKey === 'employeeCount') {
+                      return [value, 'Employee Count'];
+                    }
+                    return [value, name];
+                  }}
                 />
                 <Legend />
                 <Bar dataKey="avgRating" fill="#3B82F6" name="Average Rating" />
@@ -262,7 +275,13 @@ const Analytics = () => {
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <Tooltip 
+                  formatter={(value, name, props) => {
+                    const { payload } = props;
+                    const rating = payload?.rating ?? payload?.payload?.rating;
+                    return [`${value}`, `${rating}`];
+                  }}
+                />
               </PieChart>
             </ResponsiveContainer>
           </Card>
@@ -277,7 +296,7 @@ const Analytics = () => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
-                <Tooltip />
+                <Tooltip labelStyle={{ color: '#1E3A8A' }}/>
                 <Legend />
                 <Line 
                   type="monotone" 
@@ -298,7 +317,7 @@ const Analytics = () => {
           </Card>
 
           {/* Department Details Table */}
-          <Card className="p-6">
+          {/* <Card className="p-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
               Department Details
             </h3>
@@ -340,7 +359,59 @@ const Analytics = () => {
                 </tbody>
               </table>
             </div>
-          </Card>
+          </Card> */}
+
+          <Card className="p-6 h-[400px] flex flex-col">
+  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex-shrink-0">
+    Department Details
+  </h3>
+  <div className="overflow-x-auto overflow-y-auto flex-grow">
+    <table className="w-full text-sm text-left">
+      <thead className="text-xs text-gray-700 dark:text-gray-400 uppercase bg-gray-50 dark:bg-gray-700">
+        <tr>
+          <th className="px-4 py-3">Department</th>
+          <th className="px-4 py-3">Employees</th>
+          <th className="px-4 py-3">Avg Rating</th>
+          <th className="px-4 py-3">Performance</th>
+        </tr>
+      </thead>
+      <tbody>
+        {analyticsData.departmentRatings
+          .slice()
+          .sort((a, b) => b.avgRating - a.avgRating)
+          .map((dept) => (
+            <tr
+              key={dept.department}
+              className="bg-white dark:bg-gray-800 border-b dark:border-gray-700"
+            >
+              <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
+                {dept.department}
+              </td>
+              <td className="px-4 py-3">{dept.employeeCount}</td>
+              <td className="px-4 py-3">
+                <div className="flex items-center space-x-2">
+                  <span>{dept.avgRating}</span>
+                  <span className="text-yellow-500">{renderStars(dept.avgRating)}</span>
+                </div>
+              </td>
+              <td className="px-4 py-3">
+                <Badge className={getPerformanceBadgeColor(dept.avgRating)}>
+                  {dept.avgRating >= 4.5
+                    ? "Excellent"
+                    : dept.avgRating >= 3.5
+                    ? "Good"
+                    : dept.avgRating >= 2.5
+                    ? "Average"
+                    : "Needs Improvement"}
+                </Badge>
+              </td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
+  </div>
+</Card>
+
         </div>
 
         {/* Additional Insights */}
