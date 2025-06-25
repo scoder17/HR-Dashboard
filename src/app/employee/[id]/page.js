@@ -9,6 +9,7 @@ import useBookmarks from '@/hooks/useBookmarks';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import Card from '@/components/ui/Card';
+import Image from 'next/image';
 
 export default function EmployeeDetail() {
   const { id } = useParams();
@@ -244,10 +245,18 @@ export default function EmployeeDetail() {
         {/* Header */}
         <Card className="p-6 mb-6">
           <div className="flex flex-col lg:flex-row items-start lg:items-center space-y-4 lg:space-y-0 lg:space-x-6">
-            <img
+            {/* <img
               src={employee.image}
               alt={`${employee.firstName} ${employee.lastName}`}
               className="w-24 h-24 rounded-full object-cover"
+            /> */}
+            <Image
+              src={employee.image}
+              alt={`${employee.firstName} ${employee.lastName}`}
+              width={96}
+              height={96}
+              className="rounded-full object-cover"
+              unoptimized
             />
             <div className="flex-1">
               <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">

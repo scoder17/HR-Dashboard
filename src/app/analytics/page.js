@@ -5,6 +5,71 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import Card from '@/components/ui/Card'
 import Badge from '@/components/ui/Badge'
 
+// Mock departments for consistent data
+const departments = [
+  'Engineering', 'Marketing', 'Sales', 'HR', 'Finance', 
+  'Operations', 'Design', 'Legal', 'IT Support'
+];
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D', '#FFC658', '#FF7C7C', '#8DD1E1'];
+
+const processAnalyticsData = (users) => {
+  // Assign random departments and ratings to users
+  const usersWithDepartments = users.map(user => ({
+    ...user,
+    department: departments[Math.floor(Math.random() * departments.length)],
+    rating: Math.floor(Math.random() * 5) + 1,
+    isBookmarked: Math.random() > 0.7 // 30% chance of being bookmarked
+  }));
+
+  // Calculate department-wise average ratings
+  const departmentRatings = departments.map(dept => {
+    const deptUsers = usersWithDepartments.filter(user => user.department === dept);
+    const avgRating = deptUsers.length > 0 
+      ? deptUsers.reduce((sum, user) => sum + user.rating, 0) / deptUsers.length 
+      : 0;
+    
+    return {
+      department: dept,
+      avgRating: Number(avgRating.toFixed(1)),
+      employeeCount: deptUsers.length,
+      totalRating: deptUsers.reduce((sum, user) => sum + user.rating, 0)
+    };
+  }).filter(dept => dept.employeeCount > 0);
+
+  // Generate bookmark trends (mock monthly data)
+  const bookmarkTrends = [
+    { month: 'Jan', bookmarks: 12, newHires: 5 },
+    { month: 'Feb', bookmarks: 19, newHires: 8 },
+    { month: 'Mar', bookmarks: 15, newHires: 3 },
+    { month: 'Apr', bookmarks: 25, newHires: 12 },
+    { month: 'May', bookmarks: 22, newHires: 7 },
+    { month: 'Jun', bookmarks: 30, newHires: 15 }
+  ];
+
+  // Performance distribution
+  const performanceDistribution = [
+    { rating: '1 Star', count: usersWithDepartments.filter(u => u.rating === 1).length, value: 1 },
+    { rating: '2 Stars', count: usersWithDepartments.filter(u => u.rating === 2).length, value: 2 },
+    { rating: '3 Stars', count: usersWithDepartments.filter(u => u.rating === 3).length, value: 3 },
+    { rating: '4 Stars', count: usersWithDepartments.filter(u => u.rating === 4).length, value: 4 },
+    { rating: '5 Stars', count: usersWithDepartments.filter(u => u.rating === 5).length, value: 5 }
+  ].filter(item => item.count > 0);
+
+  const totalEmployees = usersWithDepartments.length;
+  const avgRating = usersWithDepartments.reduce((sum, user) => sum + user.rating, 0) / totalEmployees;
+  const totalBookmarks = usersWithDepartments.filter(user => user.isBookmarked).length;
+
+  return {
+    departmentRatings,
+    bookmarkTrends,
+    performanceDistribution,
+    totalEmployees,
+    avgRating: Number(avgRating.toFixed(1)),
+    totalBookmarks
+  };
+};
+
 const Analytics = () => {
   const [loading, setLoading] = useState(true);
   const [analyticsData, setAnalyticsData] = useState({
@@ -15,14 +80,6 @@ const Analytics = () => {
     avgRating: 0,
     totalBookmarks: 0
   });
-
-  // Mock departments for consistent data
-  const departments = [
-    'Engineering', 'Marketing', 'Sales', 'HR', 'Finance', 
-    'Operations', 'Design', 'Legal', 'IT Support'
-  ];
-
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D', '#FFC658', '#FF7C7C', '#8DD1E1'];
 
   useEffect(() => {
     const fetchAnalyticsData = async () => {
@@ -47,63 +104,6 @@ const Analytics = () => {
 
     fetchAnalyticsData();
   }, []);
-
-  const processAnalyticsData = (users) => {
-    // Assign random departments and ratings to users
-    const usersWithDepartments = users.map(user => ({
-      ...user,
-      department: departments[Math.floor(Math.random() * departments.length)],
-      rating: Math.floor(Math.random() * 5) + 1,
-      isBookmarked: Math.random() > 0.7 // 30% chance of being bookmarked
-    }));
-
-    // Calculate department-wise average ratings
-    const departmentRatings = departments.map(dept => {
-      const deptUsers = usersWithDepartments.filter(user => user.department === dept);
-      const avgRating = deptUsers.length > 0 
-        ? deptUsers.reduce((sum, user) => sum + user.rating, 0) / deptUsers.length 
-        : 0;
-      
-      return {
-        department: dept,
-        avgRating: Number(avgRating.toFixed(1)),
-        employeeCount: deptUsers.length,
-        totalRating: deptUsers.reduce((sum, user) => sum + user.rating, 0)
-      };
-    }).filter(dept => dept.employeeCount > 0);
-
-    // Generate bookmark trends (mock monthly data)
-    const bookmarkTrends = [
-      { month: 'Jan', bookmarks: 12, newHires: 5 },
-      { month: 'Feb', bookmarks: 19, newHires: 8 },
-      { month: 'Mar', bookmarks: 15, newHires: 3 },
-      { month: 'Apr', bookmarks: 25, newHires: 12 },
-      { month: 'May', bookmarks: 22, newHires: 7 },
-      { month: 'Jun', bookmarks: 30, newHires: 15 }
-    ];
-
-    // Performance distribution
-    const performanceDistribution = [
-      { rating: '1 Star', count: usersWithDepartments.filter(u => u.rating === 1).length, value: 1 },
-      { rating: '2 Stars', count: usersWithDepartments.filter(u => u.rating === 2).length, value: 2 },
-      { rating: '3 Stars', count: usersWithDepartments.filter(u => u.rating === 3).length, value: 3 },
-      { rating: '4 Stars', count: usersWithDepartments.filter(u => u.rating === 4).length, value: 4 },
-      { rating: '5 Stars', count: usersWithDepartments.filter(u => u.rating === 5).length, value: 5 }
-    ].filter(item => item.count > 0);
-
-    const totalEmployees = usersWithDepartments.length;
-    const avgRating = usersWithDepartments.reduce((sum, user) => sum + user.rating, 0) / totalEmployees;
-    const totalBookmarks = usersWithDepartments.filter(user => user.isBookmarked).length;
-
-    return {
-      departmentRatings,
-      bookmarkTrends,
-      performanceDistribution,
-      totalEmployees,
-      avgRating: Number(avgRating.toFixed(1)),
-      totalBookmarks
-    };
-  };
 
   const renderStars = (rating) => {
     return '★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating));

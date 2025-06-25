@@ -177,7 +177,7 @@ const Dashboard = () => {
           Showing {filteredUsers.length} of {users.length} employees
           {searchQuery && (
             <span className="ml-1">
-              for "{searchQuery}"
+              for &quot;{searchQuery}&quot;
             </span>
           )}
           {activeFiltersCount > 0 && (
