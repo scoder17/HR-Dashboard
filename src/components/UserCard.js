@@ -19,7 +19,6 @@ const UserCard = ({ user }) => {
   }
   
   const handlePromote = () => {
-    // Mock promotion action
     alert(`${user.firstName} ${user.lastName} has been promoted! 🎉`)
   }
   
