@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import useStore from '@/store/useStore'
 import Button from './ui/Button'
+import Image from 'next/image';
 
 const Navigation = () => {
   const pathname = usePathname()
@@ -27,10 +28,17 @@ const Navigation = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
-              <span className="text-2xl">💼</span>
+              <Image
+                src="https://cdn.prod.website-files.com/664abd653e983168d7aba25b/664b463ab82f296fa72b0793_lgo.svg"
+                alt="HR Dashboard Logo"
+                width={32}
+                height={32}
+                className="h-8 w-8"
+              />
               <span className="text-xl font-bold text-gray-900 dark:text-white">
                 HR Dashboard
               </span>
+              {/* <span className="text-1.9xl">💼</span> */}
             </Link>
           </div>
           
