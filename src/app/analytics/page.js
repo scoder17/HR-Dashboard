@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
 import Card from '@/components/ui/Card'
 import Badge from '@/components/ui/Badge'
+import useStore from '@/store/useStore'
 
 // Mock departments for consistent data
 const departments = [
@@ -71,6 +72,7 @@ const processAnalyticsData = (users) => {
 };
 
 const Analytics = () => {
+  const { bookmarks } = useStore()
   const [loading, setLoading] = useState(true);
   const [analyticsData, setAnalyticsData] = useState({
     departmentRatings: [],
@@ -78,7 +80,7 @@ const Analytics = () => {
     performanceDistribution: [],
     totalEmployees: 0,
     avgRating: 0,
-    totalBookmarks: 0
+    // totalBookmarks: 0
   });
 
   useEffect(() => {
@@ -197,7 +199,7 @@ const Analytics = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Bookmarked</p>
-                <p className="text-3xl font-bold text-gray-900 dark:text-white">{analyticsData.totalBookmarks}</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-white">{bookmarks.length}</p>
               </div>
               <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
                 <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -312,6 +314,7 @@ const Analytics = () => {
                 </thead>
                 <tbody>
                   {analyticsData.departmentRatings
+                    .slice()
                     .sort((a, b) => b.avgRating - a.avgRating)
                     .map((dept, index) => (
                     <tr key={dept.department} className="bg-white dark:bg-gray-800 border-b dark:border-gray-700">
