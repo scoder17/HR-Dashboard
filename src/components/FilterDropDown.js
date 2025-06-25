@@ -55,7 +55,7 @@ const FilterDropdown = () => {
         </svg>
         Filters
         {activeFiltersCount > 0 && (
-          <Badge variant="primary" size="sm" className="ml-2">
+          <Badge variant="primary" size="xsm" className="ml-2 px-1 py-0.5 text-xs">
             {activeFiltersCount}
           </Badge>
         )}
