@@ -169,7 +169,7 @@ export default function BookmarksPage() {
         ) : (
           <>
             {/* Search and Filter Controls */}
-            <div className="mb-6 space-y-4">
+            {/* <div className="mb-6 space-y-4">
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1">
                   <SearchBar
@@ -179,30 +179,33 @@ export default function BookmarksPage() {
                   />
                 </div>
                 <div className="flex gap-2">
-                  {/* <FilterDropdown
-                    options={departmentOptions}
-                    selected={selectedFilters.departments || []}
-                    onChange={(values) => setSelectedFilters(prev => ({ ...prev, departments: values }))}
-                    placeholder="Filter by Department"
-                  /> */}
                   <FilterDropdown
                     options={departmentOptions}
                     selected={filters.departments || []}
                     onChange={(values) => updateFilter('departments', values)}
                     placeholder="Filter by Department"
                   />
-                  {/* <FilterDropdown
-                    options={ratingOptions}
-                    selected={selectedFilters.ratings || []}
-                    onChange={(values) => setSelectedFilters(prev => ({ ...prev, ratings: values }))}
-                    placeholder="Filter by Rating"
-                  /> */}
                   <FilterDropdown
                     options={ratingOptions}
                     selected={filters.ratings || []}
                     onChange={(values) => updateFilter('ratings', values)}
                     placeholder="Filter by Rating"
                   />
+                </div>
+              </div> */}
+
+              <div className="mb-6 space-y-4">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex-1">
+                  {/* <SearchBar
+                    searchTerm={searchTerm}
+                    setSearchTerm={setSearchTerm}
+                    placeholder="Search bookmarked employees..."
+                  /> */}
+                  <SearchBar />
+                </div>
+                <div className="flex gap-2">
+                  <FilterDropdown />
                 </div>
               </div>
 
