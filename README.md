@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Flam-HR-Dashboard
+This repository contains a HR-Dashboard created for Flam Frontend Intern role assignment.
 
-## Getting Started
+Link: https://hr-dashboard-flam.vercel.app/
 
-First, run the development server:
+## Setup Instructions
 
-```bash
+```
+git clone https://github.com/scoder17/HR-Dashboard.git
+cd HR-Dashboard
+npm i
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features Implemented
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Dashboard Home
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Total employees, departments, avg. rating and top performers count**
 
-## Learn More
+- **Search Bar**
 
-To learn more about Next.js, take a look at the following resources:
+You can search by name, email or department.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Filters**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+You can filter using department and ratings.
 
-## Deploy on Vercel
+- **Employee Cards**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Detail about all employee can be seen, you can bookmark, promote or view details about the employee.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Bookmarks page
+
+- **Total Bookmarks, high performers and selected count**
+
+- **Employee Cards**
+
+Once bookmarked from Homepage, you can see bookmarked employees here. You can select employees and based on that you can promote, assign tasks or remove from bookmarks in bulk.
+
+### Analytics page
+
+- **Total Employees, avg. rating and total bookmarks count**
+
+- **Charts related to employees**
+
+    - Department Performance Overview, Avg. rating and employee count in bar chart
+    
+    - Pie chart showing ratings count
+
+    - Line chart showing bookmark count and hired counts in a particular month
+
+    - Overall department details performance sorted basis on avg. rating
+
+## Screenshots
+
+### Home page
+![Screenshot](screenshots/1.png)
+
+### Bookmarks page
+![Screenshot](screenshots/2.png)
+
+### Analytics page
+![Screenshot](screenshots/3.png)
+![Screenshot](screenshots/4.png)
